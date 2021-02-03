@@ -92,9 +92,9 @@ tracks/0/keys = {
 [node name="Player" type="KinematicBody2D"]
 position = Vector2( -1, 0 )
 script = ExtResource( 1 )
-run_speed = 20
-jump_speed = 20
-gravity = 5
+run_speed = 150
+jump_speed = -300
+gravity = 700
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -0.891907, 5.1353 )

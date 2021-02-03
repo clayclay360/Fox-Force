@@ -73,7 +73,6 @@ func get_input():
 	
 	if right:
 		velocity.x += run_speed # increase x velocity by run speed
-		print("run rigt")
 		$Sprite.flip_h = false # set false
 	if left:
 		velocity.x -= run_speed # decrease velocity by run speed
@@ -82,7 +81,6 @@ func get_input():
 		change_state(JUMP) #change state to jump
 		velocity.y = jump_speed # equal jump speed
 	if state == IDLE and velocity.x != 0:
-		print("running")
 		change_state(RUN) # change state to run
 	if state == RUN and velocity.x == 0:
 		change_state(IDLE) # change state to idle
