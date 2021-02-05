@@ -30,9 +30,6 @@ func take_damage():
 	set_physics_process(false) # shut down set physics process
 		
 		
-
-
-
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "death":
 		queue_free()

@@ -34,3 +34,12 @@ func spawn_pickups():
 func _on_Collectable_pickup():
 	score += 1 # increase score by one
 	emit_signal("score_changed") # emit score_changed
+
+
+func _on_Level_score_changed():
+	$CanvasLayer/HUD._on_Score_changed(score)
+	
+
+func _on_Player_life_change():
+	$CanvasLayer/HUD._on_Player_life_changed($Player.life)
+	

@@ -25,7 +25,7 @@ func start(pos):
 	show() # show player node
 	change_state(IDLE) # change state to idle
 	life = 3 # set left to 3
-	emit_signal("life_change", life) # emit life change signal 
+	emit_signal("life_change") # emit life change signal 
 
 func change_state(new_state):
 	state = new_state # equal new state
@@ -39,7 +39,7 @@ func change_state(new_state):
 			velocity.y = -200 # y velocity minus 200
 			velocity.x = -100 * sign(velocity.x)  # x velocity minus negative velocity
 			life -= 1 # life minus one
-			emit_signal("life_changed", life) # emit life change
+			emit_signal("life_change") # emit life change
 			yield(get_tree().create_timer(0.5),"timeout") # wait for time
 			change_state(IDLE) #change state to idle
 			if	life == 0:
