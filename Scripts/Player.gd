@@ -35,6 +35,7 @@ func change_state(new_state):
 		RUN:
 			new_anim = "run" # set run animation
 		HURT:
+			new_anim = "hurt"
 			velocity.y = -200 # y velocity minus 200
 			velocity.x = -100 * sign(velocity.x)  # x velocity minus negative velocity
 			life -= 1 # life minus one
@@ -62,6 +63,19 @@ func _physics_process(delta):
 		new_anim = "jump_down" # set jump down animation 
 	if state == JUMP and is_on_floor():
 		change_state(IDLE) # change state to idle
+	if state == HURT:
+		return
+	for index in range(get_slide_count()):
+		var collision = get_slide_collision(index)
+		if collision.collider.name == "Danger":
+			hurt()
+		if collision.collider.is_in_group("enemy"):
+			var player_feet = (position + $CollisionShape2D.shape.extents).y
+			if player_feet < collision.collider.position.y:
+				collision.collider.take_damage()
+				velocity.y = - 200
+			else:
+				hurt()
 	
 func get_input():
 	if state == HURT:

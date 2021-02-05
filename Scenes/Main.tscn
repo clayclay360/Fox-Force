@@ -13,10 +13,6 @@ script = ExtResource( 2 )
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 554.169, 255.002 )
 collision_layer = 2
-collision_mask = 13
-run_speed = 150
-jump_speed = -300
-gravity = 700
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2( 440.376, 331.962 )

@@ -91,6 +91,7 @@ tracks/0/keys = {
 
 [node name="Player" type="KinematicBody2D"]
 position = Vector2( -1, 0 )
+collision_mask = 13
 script = ExtResource( 1 )
 run_speed = 150
 jump_speed = -300
@@ -115,3 +116,4 @@ anims/run = SubResource( 6 )
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 zoom = Vector2( 0.3, 0.3 )
+limit_top = -100
