@@ -40,6 +40,7 @@ func change_state(new_state):
 			velocity.x = -100 * sign(velocity.x)  # x velocity minus negative velocity
 			life -= 1 # life minus one
 			emit_signal("life_change") # emit life change
+			
 			yield(get_tree().create_timer(0.5),"timeout") # wait for time
 			change_state(IDLE) #change state to idle
 			if	life == 0:

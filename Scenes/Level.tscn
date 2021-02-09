@@ -1662,4 +1662,5 @@ position = Vector2( 676.853, 215.157 )
 [node name="PlayerSpawn" type="Position2D" parent="."]
 position = Vector2( 358, 238 )
 [connection signal="score_changed" from="." to="." method="_on_Level_score_changed"]
+[connection signal="dead" from="Player" to="." method="_on_Player_dead"]
 [connection signal="life_change" from="Player" to="." method="_on_Player_life_change"]
