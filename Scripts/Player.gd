@@ -12,6 +12,9 @@ export (int) var run_speed
 export (int) var jump_speed
 export (int) var gravity
 
+var max_jumps = 2
+var jump_count = 0
+
 signal life_change
 signal dead
 var life = 3
@@ -32,6 +35,7 @@ func change_state(new_state):
 	match state:
 		IDLE:
 			new_anim = "idle" # set idle animation
+			jump_count = 0
 		RUN:
 			new_anim = "run" # set run animation
 		HURT:
@@ -47,6 +51,9 @@ func change_state(new_state):
 				change_state(DEAD)	# change state to dead
 		JUMP:
 			new_anim = "jump_up" # set jump up animation
+			jump_count = 0
+			print("Jump")
+			
 		DEAD:
 			emit_signal("dead") # emit dead signal
 			hide() # hide player
@@ -61,7 +68,7 @@ func _physics_process(delta):
 	velocity = move_and_slide(velocity, Vector2(0,-1)) #
 	
 	if state == JUMP and velocity.y > 0:
-		new_anim = "jump_down" # set jump down animation 
+		new_anim = "jump_down" # set jump down animation		 
 	if state == JUMP and is_on_floor():
 		change_state(IDLE) # change state to idle
 	if state == HURT:
@@ -77,6 +84,8 @@ func _physics_process(delta):
 				velocity.y = - 200
 			else:
 				hurt()
+	if position.y > 1000:
+		change_state(DEAD)
 	
 func get_input():
 	if state == HURT:
@@ -95,6 +104,11 @@ func get_input():
 	if jump and is_on_floor():	
 		change_state(JUMP) #change state to jump
 		velocity.y = jump_speed # equal jump speed
+	if jump and state == JUMP and jump_count < max_jumps:
+		print(jump_count)
+		new_anim = "jump_up"
+		velocity.y = jump_speed / 1.5 # equal jump speed
+		jump_count += 1
 	if state == IDLE and velocity.x != 0:
 		change_state(RUN) # change state to run
 	if state == RUN and velocity.x == 0:

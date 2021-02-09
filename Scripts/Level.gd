@@ -43,12 +43,9 @@ func _on_Level_score_changed():
 func _on_Player_life_change():
 	$CanvasLayer/HUD._on_Player_life_changed($Player.life)
 	
-
-
 func _on_Player_dead():
 	print("Dead")
 	GameState.retstart()
-
 
 func _on_Door_body_entered(body):
 	print("YO")
