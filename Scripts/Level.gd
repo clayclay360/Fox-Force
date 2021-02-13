@@ -30,6 +30,12 @@ func spawn_pickups():
 			c.init(type, pos + pickups.cell_size / 2) # call the collectable method init
 			add_child(c) # add the local collectable
 			c.connect("pickup", self, "_on_Collectable_pickup") # connect the signal pickup to on_Collectable_pickup
+		elif type in "gem_spawn":
+			var c = load("res://Scenes/Collectible.tscn").instance() # load the collectable scene
+			var pos = pickups.map_to_world(cell) # 
+			c.init(type, pos + pickups.cell_size / 2) # call the collectable method init
+			add_child(c) # add the local collectable
+			c.connect("pickup", self, "_on_Collectable_pickup") # connect the signal pickup to on_Collectable_pickup
 
 func _on_Collectable_pickup():
 	score += 1 # increase score by one
@@ -44,9 +50,7 @@ func _on_Player_life_change():
 	$CanvasLayer/HUD._on_Player_life_changed($Player.life)
 	
 func _on_Player_dead():
-	print("Dead")
 	GameState.retstart()
 
 func _on_Door_body_entered(body):
-	print("YO")
 	GameState.next_level()
