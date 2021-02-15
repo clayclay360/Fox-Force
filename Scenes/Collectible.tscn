@@ -25,7 +25,7 @@ tracks/0/keys = {
 }
 
 [node name="Collectible" type="Area2D"]
-collision_layer = 8
+collision_layer = 2147483656
 collision_mask = 2
 script = ExtResource( 2 )
 
