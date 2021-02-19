@@ -18,8 +18,8 @@ var max_jumps = 2
 var jump_count = 0
 var direction = 1
 var life = 3
-var is_climbing = false;
-var is_hugging = false;
+var is_climbing = false
+var is_hugging = false
 
 signal life_change
 signal dead
@@ -65,13 +65,12 @@ func change_state(new_state):
 			new_anim = "climb"
 			
 func _physics_process(delta):
-	if !is_climbing || !is_hugging:
+	if !is_climbing:
 		velocity.y += gravity * delta # decrease y velocity by gravity times delta 
 	get_input() # run get_input function
 	if new_anim != anim:
 		anim = new_anim # set new animation
 		$AnimationPlayer.play(anim) # play animation
-		
 	velocity = move_and_slide(velocity, Vector2(0,-1)) # move and slide by the velocity and direction
 	if state == JUMP and velocity.y > 0:
 		new_anim = "jump_down" # set jump down animation		 
@@ -90,6 +89,7 @@ func _physics_process(delta):
 				velocity.y = - 200 # decrease by 200
 			else:
 				hurt()
+			
 	if position.y > 1000:
 		change_state(DEAD) # change state to dead
 	
@@ -116,7 +116,6 @@ func get_input():
 		change_state(JUMP) #change state to jump
 		velocity.y = jump_speed # equal jump speed
 	if jump and state == JUMP and jump_count < max_jumps:
-		print(jump_count)
 		new_anim = "jump_up" # equal jump_up
 		velocity.y = jump_speed / 1.5 # equal jump speed
 		jump_count += 1 # plus equal one
@@ -137,6 +136,13 @@ func get_input():
 	if is_climbing and down:
 		velocity.y += climbing_speed
 		clamp(velocity.y,0,climbing_speed)
+	if is_on_wall():
+		is_climbing = true
+		is_hugging = true
+		velocity.y = 0
+	elif is_hugging and !is_on_wall():
+		is_climbing = false
+		is_hugging = false
 	
 func hurt():
 	if state != HURT:
@@ -148,6 +154,3 @@ func climb():
 		change_state(CLIMB)
 	else:
 		change_state(RUN)
-		
-func hug():
-	is_hugging != is_hugging

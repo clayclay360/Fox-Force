@@ -61,7 +61,7 @@ position = Vector2( 1083.81, 428.017 )
 texture = ExtResource( 8 )
 
 [node name="Climbable_Wall" parent="." index="14" instance=ExtResource( 10 )]
-position = Vector2( 541.221, 335.869 )
+position = Vector2( 1111.5, 335.515 )
 
 [node name="Enemy" parent="." index="16"]
 position = Vector2( 620.281, 343.892 )
