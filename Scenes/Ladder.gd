@@ -19,4 +19,12 @@ func _ready():
 
 
 func _on_Ladder_body_entered(body):
-	print("Hit")
+	if body.name == "Player":
+			print("Player hit me")
+			body.climb()
+
+
+func _on_Ladder_body_exited(body):
+	if body.name == "Player":
+			print("Player left me")
+			body.climb()

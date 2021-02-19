@@ -3,23 +3,26 @@ extends KinematicBody2D
 #This script controls all of characters movement
 
 #variables
-enum {IDLE, RUN, JUMP, HURT, DEAD} 
+enum {IDLE, RUN, JUMP, HURT, DEAD, CLIMB} 
 var state
 var anim
 var new_anim
 var velocity = Vector2()
 export (int) var run_speed
 export (int) var jump_speed
+export (int) var climbing_speed
 export (int) var gravity
 const acorn = preload("res://Scenes/Projectile.tscn")
 
 var max_jumps = 2
 var jump_count = 0
 var direction = 1
+var life = 3
+var is_climbing = false;
 
 signal life_change
 signal dead
-var life = 3
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -54,14 +57,15 @@ func change_state(new_state):
 		JUMP:
 			new_anim = "jump_up" # set jump up animation
 			jump_count = 0
-			print("Jump")
-			
 		DEAD:
 			emit_signal("dead") # emit dead signal
 			hide() # hide player
+		CLIMB:
+			new_anim = "climb"
 			
 func _physics_process(delta):
-	velocity.y += gravity * delta # decrease y velocity by gravity times delta 
+	if !is_climbing:
+		velocity.y += gravity * delta # decrease y velocity by gravity times delta 
 	get_input() # run get_input function
 	if new_anim != anim:
 		anim = new_anim # set new animation
@@ -96,6 +100,8 @@ func get_input():
 	var left = Input.is_action_pressed("left") # get left input
 	var jump = Input.is_action_just_pressed("jump") # get jump input
 	var throw = Input.is_action_just_pressed("throw") # get throw input
+	var up = Input.is_action_pressed("up")
+	var down = Input.is_action_pressed("down")
 	
 	if right:
 		velocity.x += run_speed # increase x velocity by run speed
@@ -125,8 +131,19 @@ func get_input():
 		get_tree().current_scene.add_child(particle_instance)
 		particle_instance.global_transform = $ProjectileSpawn.global_transform
 		particle_instance.speed *= direction
-		
+	if is_climbing and up:
+		print("climbing")
+		velocity.y -= climbing_speed
+		clamp(velocity.y,0,climbing_speed)
 	
 func hurt():
 	if state != HURT:
 		change_state(HURT) # change state to hurt
+
+func climb():
+	print("Imma climb")
+	is_climbing = ! is_climbing
+	if is_climbing:
+		change_state(CLIMB)
+	else:
+		change_state(RUN)

@@ -114,6 +114,7 @@ collision_mask = 13
 script = ExtResource( 1 )
 run_speed = 150
 jump_speed = -300
+climbing_speed = 10
 gravity = 700
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
