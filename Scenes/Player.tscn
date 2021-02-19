@@ -1,10 +1,27 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://player_sheet.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 7.99415, 10.7426 )
+
+[sub_resource type="Animation" id=7]
+resource_name = "climb"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2 ]
+}
 
 [sub_resource type="Animation" id=2]
 resource_name = "hurt"
@@ -106,9 +123,10 @@ shape = SubResource( 1 )
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
 hframes = 19
-frame = 10
+frame = 6
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/climb = SubResource( 7 )
 anims/hurt = SubResource( 2 )
 anims/idle = SubResource( 3 )
 anims/jump_down = SubResource( 4 )
