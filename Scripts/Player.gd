@@ -19,6 +19,7 @@ var jump_count = 0
 var direction = 1
 var life = 3
 var is_climbing = false;
+var is_hugging = false;
 
 signal life_change
 signal dead
@@ -64,7 +65,7 @@ func change_state(new_state):
 			new_anim = "climb"
 			
 func _physics_process(delta):
-	if !is_climbing:
+	if !is_climbing || !is_hugging:
 		velocity.y += gravity * delta # decrease y velocity by gravity times delta 
 	get_input() # run get_input function
 	if new_anim != anim:
@@ -126,14 +127,15 @@ func get_input():
 	if state == IDLE and !is_on_floor() || state == RUN and !is_on_floor():
 		change_state(JUMP) #change state to jump
 	if state == IDLE and throw:
-		print("throwing")
 		var particle_instance = acorn.instance()
 		get_tree().current_scene.add_child(particle_instance)
 		particle_instance.global_transform = $ProjectileSpawn.global_transform
 		particle_instance.speed *= direction
 	if is_climbing and up:
-		print("climbing")
 		velocity.y -= climbing_speed
+		clamp(velocity.y,0,climbing_speed)
+	if is_climbing and down:
+		velocity.y += climbing_speed
 		clamp(velocity.y,0,climbing_speed)
 	
 func hurt():
@@ -141,9 +143,11 @@ func hurt():
 		change_state(HURT) # change state to hurt
 
 func climb():
-	print("Imma climb")
 	is_climbing = ! is_climbing
 	if is_climbing:
 		change_state(CLIMB)
 	else:
 		change_state(RUN)
+		
+func hug():
+	is_hugging != is_hugging

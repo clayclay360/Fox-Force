@@ -1,11 +1,70 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scenes/Level.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Ladder.tscn" type="PackedScene" id=2]
+[ext_resource path="res://environment/layers/Tree.png" type="Texture" id=3]
+[ext_resource path="res://environment/layers/rocks.png" type="Texture" id=4]
+[ext_resource path="res://environment/layers/House.png" type="Texture" id=5]
+[ext_resource path="res://environment/layers/mushroom.png" type="Texture" id=6]
+[ext_resource path="res://environment/layers/CaveBackGround.png" type="Texture" id=7]
+[ext_resource path="res://environment/layers/skulls.png" type="Texture" id=8]
+[ext_resource path="res://Scenes/Enemy.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/Climbable_Wall.tscn" type="PackedScene" id=10]
 
 [node name="Level" instance=ExtResource( 1 )]
 position = Vector2( 1, 0 )
 
-[node name="Ladder" parent="." index="5" instance=ExtResource( 2 )]
-position = Vector2( 490, 287 )
+[node name="CaveBackGround" type="Sprite" parent="." index="2"]
+position = Vector2( 1234.03, 430.912 )
+scale = Vector2( 39.8654, 7.87662 )
+texture = ExtResource( 7 )
+
+[node name="Environment" parent="." index="3"]
+tile_data = PoolIntArray( 1179700, 48, 0, 1179701, 49, 0, 1179702, 50, 0, 1310737, 0, 0, 1310738, 0, 0, 1310739, 0, 0, 1310740, 0, 0, 1310741, 0, 0, 1310742, 0, 0, 1310743, 0, 0, 1310744, 0, 0, 1310745, 0, 0, 1310746, 19, 0, 1310799, 18, 0, 1310801, 19, 0, 1376284, 19, 0, 1376333, 18, 0, 1376339, 19, 0, 1441822, 19, 0, 1441827, 25, 0, 1441834, 25, 0, 1441867, 18, 0, 1441871, 6, 0, 1441872, 6, 0, 1441873, 6, 0, 1441874, 6, 0, 1441877, 19, 0, 1507360, 2, 0, 1507361, 2, 0, 1507362, 2, 0, 1507363, 2, 0, 1507364, 2, 0, 1507365, 2, 0, 1507366, 2, 0, 1507367, 0, 0, 1507368, 0, 0, 1507369, 0, 0, 1507370, 0, 0, 1507371, 0, 0, 1507372, 0, 0, 1507373, 0, 0, 1507374, 0, 0, 1507375, 0, 0, 1507376, 0, 0, 1507377, 0, 0, 1507378, 0, 0, 1507379, 0, 0, 1507380, 0, 0, 1507381, 0, 0, 1507382, 0, 0, 1507383, 0, 0, 1507384, 0, 0, 1507385, 0, 0, 1507386, 0, 0, 1507387, 0, 0, 1507388, 0, 0, 1507389, 50, 0, 1507392, 48, 0, 1507393, 0, 0, 1507394, 2, 0, 1507395, 2, 0, 1507396, 2, 0, 1507397, 2, 0, 1507398, 2, 0, 1507399, 2, 0, 1507400, 2, 0, 1507401, 2, 0, 1507402, 2, 0, 1507415, 2, 0, 1507416, 2, 0, 1507417, 2, 0, 1507418, 50, 0, 1507423, 16, 0, 1507425, 14, 0, 1507426, 14, 0, 1507427, 14, 0, 1507428, 14, 0, 1507429, 14, 0, 1507430, 14, 0, 1572921, 30, 0, 1572957, 16, 0, 1572961, 34, 0, 1572962, 34, 0, 1572963, 34, 0, 1572964, 34, 0, 1572965, 34, 0, 1572966, 34, 0, 1638457, 30, 0, 1638472, 63, 0, 1638491, 16, 0, 1638495, 6, 0, 1638496, 6, 0, 1638497, 34, 0, 1638498, 34, 0, 1638499, 34, 0, 1638500, 34, 0, 1638501, 34, 0, 1638502, 34, 0, 1703993, 30, 0, 1704012, 40, 0, 1704020, 40, 0, 1704025, 16, 0, 1704029, 6, 0, 1704030, 6, 0, 1704031, 6, 0, 1704032, 6, 0, 1704033, 34, 0, 1704034, 34, 0, 1704035, 34, 0, 1704036, 34, 0, 1704037, 34, 0, 1704038, 34, 0, 1769529, 56, 0, 1769530, 56, 0, 1769531, 56, 0, 1769532, 56, 0, 1769533, 56, 0, 1769534, 56, 0, 1769535, 56, 0, 1769536, 56, 0, 1769537, 56, 0, 1769538, 56, 0, 1769539, 56, 0, 1769540, 56, 0, 1769541, 56, 0, 1769542, 56, 0, 1769543, 56, 0, 1769544, 56, 0, 1769545, 56, 0, 1769546, 56, 0, 1769547, 56, 0, 1769548, 56, 0, 1769549, 56, 0, 1769550, 56, 0, 1769551, 56, 0, 1769552, 56, 0, 1769553, 56, 0, 1769554, 56, 0, 1769555, 56, 0, 1769556, 56, 0, 1769557, 56, 0, 1769558, 56, 0, 1769559, 56, 0, 1769560, 56, 0, 1769563, 6, 0, 1769564, 6, 0, 1769565, 6, 0, 1769566, 6, 0, 1769567, 6, 0, 1769568, 6, 0, 1769569, 34, 0, 1769570, 34, 0, 1769571, 34, 0, 1769572, 34, 0, 1769573, 34, 0, 1769574, 34, 0 )
+
+[node name="PowerUps" parent="." index="4"]
+tile_data = PoolIntArray( 1114165, 2, 0, 1441880, 2, 0, 1704016, 2, 0 )
+
+[node name="Danger" parent="." index="5"]
+tile_data = PoolIntArray(  )
+
+[node name="Rocks" type="Sprite" parent="." index="6"]
+position = Vector2( 362.897, 312.818 )
+texture = ExtResource( 4 )
+
+[node name="Tree" type="Sprite" parent="." index="7"]
+position = Vector2( 328.597, 272.282 )
+texture = ExtResource( 3 )
+
+[node name="House" type="Sprite" parent="." index="8"]
+position = Vector2( 765.334, 313.709 )
+texture = ExtResource( 5 )
+
+[node name="House2" type="Sprite" parent="." index="9"]
+position = Vector2( 937.278, 314.154 )
+texture = ExtResource( 5 )
+
+[node name="Ladder" parent="." index="10" instance=ExtResource( 2 )]
+position = Vector2( 814.733, 334.663 )
 collision_mask = 2
+
+[node name="Ladder2" parent="." index="11" instance=ExtResource( 2 )]
+position = Vector2( 1000.04, 400.59 )
+collision_mask = 2
+
+[node name="Mushroom" type="Sprite" parent="." index="12"]
+position = Vector2( 771.571, 363.154 )
+texture = ExtResource( 6 )
+
+[node name="skulls" type="Sprite" parent="." index="13"]
+position = Vector2( 1083.81, 428.017 )
+texture = ExtResource( 8 )
+
+[node name="Climbable_Wall" parent="." index="14" instance=ExtResource( 10 )]
+position = Vector2( 541.221, 335.869 )
+
+[node name="Enemy" parent="." index="16"]
+position = Vector2( 620.281, 343.892 )
+
+[node name="Enemy2" parent="." index="17" instance=ExtResource( 9 )]
+position = Vector2( 1293.35, 408.037 )
