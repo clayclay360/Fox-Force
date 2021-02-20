@@ -12,14 +12,17 @@ export (int) var run_speed
 export (int) var jump_speed
 export (int) var climbing_speed
 export (int) var gravity
+export (int) var dash_speed
 const acorn = preload("res://Scenes/Projectile.tscn")
 
 var max_jumps = 2
 var jump_count = 0
 var direction = 1
 var life = 3
+var press_count = 0
 var is_climbing = false
 var is_hugging = false
+var wall_is_climbable = false
 
 signal life_change
 signal dead
@@ -88,8 +91,10 @@ func _physics_process(delta):
 				collision.collider.take_damage() # run take damage function from collider
 				velocity.y = - 200 # decrease by 200
 			else:
-				hurt()
-			
+				hurt()	
+		if collision.collider.is_in_group("climbable"):
+			wall_is_climbable = true
+			print("climbing")
 	if position.y > 1000:
 		change_state(DEAD) # change state to dead
 	
@@ -136,13 +141,28 @@ func get_input():
 	if is_climbing and down:
 		velocity.y += climbing_speed
 		clamp(velocity.y,0,climbing_speed)
-	if is_on_wall():
+	if is_on_wall() and wall_is_climbable:
 		is_climbing = true
 		is_hugging = true
 		velocity.y = 0
 	elif is_hugging and !is_on_wall():
 		is_climbing = false
 		is_hugging = false
+		wall_is_climbable = false
+	if Input.is_action_just_pressed("right") and press_count == 0:
+		press_count = 1
+		$Timer.start()
+	elif Input.is_action_just_pressed("right") and press_count == 1 and $Timer.time_left > 0:
+		print("double press")
+		press_count = 0
+		velocity.x = dash_speed
+	if Input.is_action_just_pressed("left") and press_count == 0:
+		press_count = 1
+		$Timer.start()
+	elif Input.is_action_just_pressed("left") and press_count == 1 and $Timer.time_left > 0:
+		print("double press")
+		press_count = 0
+		velocity.x = -dash_speed
 	
 func hurt():
 	if state != HURT:
@@ -154,3 +174,7 @@ func climb():
 		change_state(CLIMB)
 	else:
 		change_state(RUN)
+
+
+func _on_Timer_timeout():
+	press_count = 0

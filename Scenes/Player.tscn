@@ -111,6 +111,7 @@ run_speed = 150
 jump_speed = -300
 climbing_speed = 10
 gravity = 700
+dash_speed = 2500
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -0.891907, 5.1353 )
@@ -136,3 +137,8 @@ limit_top = -100
 
 [node name="ProjectileSpawn" type="Position2D" parent="."]
 position = Vector2( -0.157665, 7.14762 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
