@@ -43,14 +43,14 @@ func _on_Collectable_pickup():
 
 
 func _on_Level_score_changed():
-	$CanvasLayer/HUD._on_Score_changed(score)
+	$CanvasLayer/HUD._on_Score_changed(score) # run the score changed function with the agrument of score
 	
 
 func _on_Player_life_change():
-	$CanvasLayer/HUD._on_Player_life_changed($Player.life)
+	$CanvasLayer/HUD._on_Player_life_changed($Player.life) # run the player life changed with the agrument  of the player's life
 	
 func _on_Player_dead():
-	GameState.retstart()
+	GameState.retstart() # run the restart function of the gamestate
 
 func _on_Door_body_entered(body):
-	GameState.next_level()
+	GameState.next_level() $ run the next level function of the game state
